@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Productivity App</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="pomodoro">Pomodoro</button>
+            <button class="tab-btn" data-tab="flashcards">Flash Cards</button>
+            <button class="tab-btn" data-tab="todos">Todo List</button>
+        </nav>
+
+        <main>
+            <section id="pomodoro" class="tab-content active">
+                <div class="timer-container">
+                    <h2>Pomodoro Timer</h2>
+                    <div class="timer-display">25:00</div>
+                    <div class="timer-controls">
+                        <button id="start-timer">Start</button>
+                        <button id="pause-timer">Pause</button>
+                        <button id="reset-timer">Reset</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="flashcards" class="tab-content">
+                <div class="flashcard-container">
+                    <h2>Flash Cards</h2>
+                    <div class="flashcard">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <p>Click to add a question</p>
+                            </div>
+                            <div class="flashcard-back">
+                                <p>Click to add an answer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button id="prev-card">Previous</button>
+                        <button id="add-card">Add Card</button>
+                        <button id="next-card">Next</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="todos" class="tab-content">
+                <div class="todo-container">
+                    <h2>Todo List</h2>
+                    <div class="todo-input">
+                        <input type="text" id="todo-input" placeholder="Add a new task">
+                        <button id="add-todo">Add</button>
+                    </div>
+                    <ul id="todo-list"></ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
