@@ -3,8 +3,12 @@ export function initPomodoro() {
     const startBtn = document.getElementById('start-timer');
     const pauseBtn = document.getElementById('pause-timer');
     const resetBtn = document.getElementById('reset-timer');
+    const customTimeInput = document.getElementById('custom-time');
+    const intervalInput = document.getElementById('interval-time');
+    const sessionNameInput = document.getElementById('session-name');
+    const saveSessionBtn = document.getElementById('save-session');
 
-    let timeLeft = 25 * 60; // 25 minutes in seconds
+    let timeLeft = 25 * 60; // 25 minutes in seconds by default
     let timerId = null;
     let isRunning = false;
 
@@ -25,7 +29,7 @@ export function initPomodoro() {
                     clearInterval(timerId);
                     isRunning = false;
                     alert('Pomodoro session completed!');
-                    timeLeft = 25 * 60;
+                    timeLeft = getIntervalTime() * 60; // Reset to interval time
                     updateDisplay();
                 }
             }, 1000);
@@ -40,13 +44,32 @@ export function initPomodoro() {
     function resetTimer() {
         clearInterval(timerId);
         isRunning = false;
-        timeLeft = 25 * 60;
+        timeLeft = getCustomTime() * 60;
         updateDisplay();
+    }
+
+    function getCustomTime() {
+        const customTime = parseInt(customTimeInput.value);
+        return isNaN(customTime) ? 25 : customTime; // Default to 25 if input is invalid
+    }
+
+    function getIntervalTime() {
+        const intervalTime = parseInt(intervalInput.value);
+        return isNaN(intervalTime) ? 5 : intervalTime; // Default to 5 if input is invalid
+    }
+
+    function saveSession() {
+        const sessionName = sessionNameInput.value || 'Unnamed Session';
+        const completedSessions = JSON.parse(localStorage.getItem('completedSessions')) || [];
+        completedSessions.push({ name: sessionName, time: new Date().toLocaleString() });
+        localStorage.setItem('completedSessions', JSON.stringify(completedSessions));
+        alert('Session saved!');
     }
 
     startBtn.addEventListener('click', startTimer);
     pauseBtn.addEventListener('click', pauseTimer);
     resetBtn.addEventListener('click', resetTimer);
+    saveSessionBtn.addEventListener('click', saveSession);
 
     // Initialize display
     updateDisplay();
